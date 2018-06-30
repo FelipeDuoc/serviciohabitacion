@@ -5,9 +5,13 @@
  */
 package servicio;
 
+import DAO.DisponibilidadDAO;
+import DAOImpl.DisponibilidadDAOImpl;
+import Modelo.Disponibilidad;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 
 /**
  *
@@ -19,8 +23,16 @@ public class servicioHabitacion {
     /**
      * This is a sample web service operation
      */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
+    @WebMethod(operationName = "DisponibilidadHabitaciones")
+    @WebResult(name ="Disponible")
+    public Disponibilidad getDisponibilidad(@WebParam(name = "idTipoHabitacion") int idTipoHabitacion) {
+        
+        Disponibilidad disp = new Disponibilidad();
+        DisponibilidadDAO res = new DisponibilidadDAOImpl();
+        
+        disp = res.buscarDisponibilidadHabitacion(idTipoHabitacion);
+        
+        return disp;
+          
     }
 }
